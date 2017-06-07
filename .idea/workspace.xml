@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="39c11c8e-083b-47e9-9f93-306be249f20f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/mysite/settings.py" afterPath="$PROJECT_DIR$/mysite/mysite/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/polls/auth.py" afterPath="$PROJECT_DIR$/mysite/polls/auth.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/polls/models.py" afterPath="$PROJECT_DIR$/mysite/polls/models.py" />
-    </list>
+    <list default="true" id="39c11c8e-083b-47e9-9f93-306be249f20f" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
