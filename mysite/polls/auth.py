@@ -2,6 +2,7 @@ import hashlib
 from django.utils import timezone
 from .models import Token
 
+
 def get_or_create_token(user):
     token = Token.objects.filter(user=user)
     if token.count() >= 1:
@@ -14,12 +15,14 @@ def get_or_create_token(user):
     token = Token.object.create(user=user,hash=hash_phrase)
     return token
 
+
 def get_basic_auth(request):
     if 'HTTP_AUTHORIZATION' in request.META:
         auth = request.META['HTTP_AUTHORIZATION'].split(' ')
         if len(auth) == 2 and auth[0] == 'Basic':
             return auth[1]
     return None
+
 
 def check_request_token(request):
     token = get_basic_auth(request)
