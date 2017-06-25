@@ -55,5 +55,5 @@ class MessageSerializer(serializers.ModelSerializer):
 
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
-    serializer_class = ChannelSerializer
+    serializer_class = MessageSerializer
 
