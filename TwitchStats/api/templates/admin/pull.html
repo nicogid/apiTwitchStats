@@ -1,0 +1,97 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Faire un pull depuis Twitch</h1>
+
+<div class="row" id="form-pull">
+  <div class="col-lg-6">
+
+    <form id="form"  method="post">
+      <div class="form-group">
+        {% csrf_token %}
+        <input type="text" class="form-control" name="client_id" value="jzkbprff40iqj646a697cyrvl0zt2m6" />
+      </div>
+      <button type="submit" id="button-pull"  class="btn btn-primary">Pull</button>
+    </form>
+
+  </div>
+</div>
+
+<br>
+
+<div class="row" id="progress-pull" hidden>
+  <div class="col-lg-12">
+
+    <div class="progress">
+      <div id="progress-bar" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
+        0%
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="pull-done" class="alert alert-success" role="alert" hidden>
+  <p class="bg-success">Terminé</p>
+</div>
+
+<script>
+
+    var idPull;
+    var intervalGetInfoPull;
+
+    $("#button-pull").on('click', function () {
+        event.preventDefault();
+        $("#form-pull").css('display', 'none');
+        $("#progress-pull").css('display', 'block');
+
+        $.ajax({
+            type : 'POST',
+            data : $('#form').serialize(),
+            success : function(data){
+                idPull = data.id;
+                getInfoPull();
+                $.ajax({
+                    url: '/admin/pull/process',
+                    type: 'GET'
+                });
+
+            },
+
+            error : function(){
+                alert("Une erreur est survenue !!")
+            }
+        });
+
+
+        function getInfoPull() {
+            intervalGetInfoPull = setInterval(function () {
+
+                $.ajax({
+                    url: '/admin/pull/version/info/' + idPull,
+                    type : 'GET',
+                    success : function(data){
+
+                        var value = data.percent + "%";
+                        $('#progress-bar').width(value).text(value);
+                        if (value === "100%") {
+                            clearInterval(intervalGetInfoPull);
+                            $("#pull-done").css('display', 'block');
+                            $("#progress-pull").css('display', 'none');
+                        }
+                    },
+                    error : function(){
+                        clearInterval(intervalGetInfoPull);
+                        alert("Une erreur est survenue !!")
+                    }
+                });
+
+
+            }, 1000);
+        }
+
+
+    });
+</script>
+
+{% endblock %}
