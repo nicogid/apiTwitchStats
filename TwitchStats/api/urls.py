@@ -15,5 +15,6 @@ router.register(r'channels', ChannelViewSet)
 
 urlpatterns = [
     url(r'^login$', views.login, name='login'),
+    url(r'^users$', views.users, name='user'),
     url(r'^', include(router.urls)),
 ]
