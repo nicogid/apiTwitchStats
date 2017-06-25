@@ -1,0 +1,7 @@
+Structure projet base
+https://github.com/djstein/modern-django
+
+
+add-on
+pip install django-adminplus
+pip install django-admin-bootstrapped

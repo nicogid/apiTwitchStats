@@ -113,6 +113,7 @@ class ParseTwitch:
                                     id_message_twitch=json_msg["id"],
                                     body=json_msg["attributes"]["message"],
                                     timestamp=start,
+                                    video=video,
                                     user=user)
                                 message.save()
 
