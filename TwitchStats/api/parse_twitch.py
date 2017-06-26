@@ -82,12 +82,12 @@ class ParseTwitch:
                         r = requests.get('https://rechat.twitch.tv/rechat-messages?start=' + str(start) + '&video_id='
                                          + str(video.id_video_twitch) + "&client_id=" + self.version.client_id)
                         start += 30
-                        if count_message >= 1 or r.status_code == 404:
-                            break
-                        count_message += 1
+                        # uncomment to limit nb message by video
+                        # if count_message >= 1 or r.status_code == 404:
+                        #    break
+                        # count_message += 1
                         json_messages = r.json()["data"]
                         for json_msg in json_messages:
-                            print(json_msg)
                             if json_msg is {} or json_msg is None:
                                 break
                             if Message.objects.filter(id_message_twitch=json_msg["id"]).first() is not None:

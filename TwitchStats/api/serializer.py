@@ -1,4 +1,4 @@
-from rest_framework import serializers, viewsets
+from rest_framework import serializers, viewsets, generics
 
 from api.models import User, Game, Video, Channel, Message
 
@@ -31,6 +31,18 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class VideoList(generics.ListAPIView):
+    serializer_class = VideoSerializer
+
+    def get_queryset(self):
+        queryset = Video.objects.all()
+        game_id = int(self.kwargs["game"])
+        if game_id is not None:
+            game = Game.objects.filter(id=game_id)
+            queryset = queryset.filter(game=game)
+        return queryset
+
+
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
@@ -56,4 +68,16 @@ class MessageSerializer(serializers.ModelSerializer):
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+
+
+class MessageList(generics.ListAPIView):
+    serializer_class = MessageSerializer
+
+    def get_queryset(self):
+        queryset = Message.objects.all()
+        video_id = int(self.kwargs["video"])
+        if video_id is not None:
+            video = Video.objects.filter(id=video_id)
+            queryset = queryset.filter(video=video)
+        return queryset
 

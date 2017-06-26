@@ -14,15 +14,6 @@ class VersionPull(models.Model):
     client_id = models.CharField(max_length=255, null=True)
 
 
-class Token(models.Model):
-    user = models.OneToOneField('auth.User', on_delete=models.CASCADE, unique=True)
-    hash = models.CharField(max_length=100)
-    expiration_date = models.DateTimeField(default=get_expiration_date)
-
-    def is_expired(self):
-        return self.expiration_date < timezone.now()
-
-
 class User(models.Model):
     id_user_twitch = models.IntegerField(unique=True)
     name = models.CharField(max_length=255, null=True)
@@ -83,3 +74,12 @@ class Message(models.Model):
 
     def __str__(self):
         return self.body
+
+
+class AccessToken(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    expiration_date = models.DateTimeField(default=get_expiration_date)
+    token = models.CharField(max_length=255, unique=True)
+
+    def is_expired(self):
+        return self.expiration_date < timezone.now()
