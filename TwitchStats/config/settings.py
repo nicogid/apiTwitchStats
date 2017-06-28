@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'adminplus',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -70,6 +71,7 @@ REST_FRAMEWORK = {
 
 ROOT_URLCONF = 'config.urls'
 
+print(BASE_DIR)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -117,6 +119,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'oauth'
+        }
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

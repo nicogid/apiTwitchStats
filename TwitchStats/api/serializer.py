@@ -36,10 +36,11 @@ class VideoList(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Video.objects.all()
-        game_id = int(self.kwargs["game"])
-        if game_id is not None:
-            game = Game.objects.filter(id=game_id)
-            queryset = queryset.filter(game=game)
+        if len(self.kwargs) > 0:
+            game_id = int(self.kwargs["game"])
+            if game_id is not None:
+                game = Game.objects.filter(id=game_id)
+                queryset = queryset.filter(game=game)
         return queryset
 
 
@@ -75,9 +76,10 @@ class MessageList(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Message.objects.all()
-        video_id = int(self.kwargs["video"])
-        if video_id is not None:
-            video = Video.objects.filter(id=video_id)
-            queryset = queryset.filter(video=video)
+        if len(self.kwargs) > 0:
+            video_id = int(self.kwargs["video"])
+            if video_id is not None:
+                video = Video.objects.filter(id=video_id)
+                queryset = queryset.filter(video=video)
         return queryset
 

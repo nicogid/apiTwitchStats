@@ -16,13 +16,17 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from adminplus.sites import AdminSitePlus
+from rest_framework_swagger.views import get_swagger_view
+
 
 admin.site = AdminSitePlus()
 admin.autodiscover()
 
-
+schema_view = get_swagger_view(title='Fuck API')
 
 urlpatterns = [
+    url(r'^apidoc/', schema_view),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('api.urls')),
+
 ]
